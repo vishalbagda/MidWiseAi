@@ -1,0 +1,36 @@
+[
+  {
+    "reportId": "DON1771251848717",
+    "medicine": {
+      "name": "Test Med"
+    },
+    "center": {
+      "name": "Test Center"
+    },
+    "submittedAt": "2026-02-16T14:24:08.718Z"
+  },
+  {
+    "reportId": "DON1771253453124",
+    "medicine": {
+      "condition": "unopened",
+      "medicineType": "otc"
+    },
+    "center": {
+      "name": "Global Health NGO",
+      "address": "Sion, Mumbai - 400022",
+      "city": "Mumbai",
+      "zipCode": "400022",
+      "phone": "+91 22 2407 1000",
+      "distance": "Varies",
+      "accepts": [
+        "Pediatric medicines",
+        "General OTC"
+      ],
+      "hours": "Mon-Fri 9AM-5PM",
+      "rating": 4.5,
+      "verified": true
+    },
+    "donatedAt": "2026-02-16T14:50:53.105Z",
+    "submittedAt": "2026-02-16T14:50:53.124Z"
+  }
+]

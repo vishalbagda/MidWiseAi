@@ -1,0 +1,11 @@
+# CodeRabbit Configuration
+# For more information, visit https://coderabbit.ai/docs/configuration
+language: "en-US"
+reviews:
+  profile: "chill"
+  request_review_command: "/review"
+  high_level_summary: true
+  path_filters:
+    - "!public/**"
+    - "!dist/**"
+    - "!node_modules/**"
