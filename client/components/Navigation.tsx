@@ -23,10 +23,23 @@ import {
   Phone
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
+import LoginButton from "./LoginButton";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { LogOut, User as UserIcon } from "lucide-react";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { user, logout } = useAuth();
 
   const features = [
     {
@@ -132,12 +145,42 @@ export default function Navigation() {
             </NavigationMenu>
 
             <div className="flex items-center space-x-2">
-              <Button asChild variant="ghost" size="sm">
-                <Link to="/prescription-analyzer">Try Now</Link>
-              </Button>
-              <Button asChild size="sm">
-                <Link to="/prescription-analyzer">Get Started</Link>
-              </Button>
+              {!user ? (
+                <Link to="/login">
+                  <Button variant="default" size="sm">
+                    Sign In
+                  </Button>
+                </Link>
+              ) : (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="relative h-9 w-9 rounded-full ring-offset-background transition-all hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                      <Avatar className="h-9 w-9 border border-border shadow-sm">
+                        <AvatarImage src={user.picture} alt={user.name} />
+                        <AvatarFallback className="bg-primary/10 text-primary font-semibold">{user.name.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56" align="end" forceMount>
+                    <DropdownMenuLabel className="font-normal">
+                      <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-medium leading-none">{user.name}</p>
+                        <p className="text-xs leading-none text-muted-foreground">
+                          {user.email}
+                        </p>
+                      </div>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem 
+                      onClick={() => logout()}
+                      className="text-red-500 hover:text-red-600 hover:bg-red-50 focus:bg-red-50"
+                    >
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Log out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
             </div>
           </div>
 
@@ -196,9 +239,33 @@ export default function Navigation() {
                   </div>
                   
                   <div className="border-t pt-4 space-y-2">
-                    <Button asChild className="w-full" onClick={() => setIsOpen(false)}>
-                      <Link to="/prescription-analyzer">Get Started</Link>
-                    </Button>
+                    {!user ? (
+                      <div className="px-3">
+                        <Link to="/login" onClick={() => setIsOpen(false)}>
+                          <Button className="w-full">Sign In</Button>
+                        </Link>
+                      </div>
+                    ) : (
+                      <div className="space-y-4 px-3">
+                        <div className="flex items-center space-x-3">
+                          <Avatar className="h-10 w-10">
+                            <AvatarImage src={user.picture} alt={user.name} />
+                            <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <div className="font-medium">{user.name}</div>
+                            <div className="text-xs text-muted-foreground">{user.email}</div>
+                          </div>
+                        </div>
+                        <Button variant="outline" className="w-full justify-start" onClick={() => {
+                          logout();
+                          setIsOpen(false);
+                        }}>
+                          <LogOut className="mr-2 h-4 w-4" />
+                          Log out
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </SheetContent>

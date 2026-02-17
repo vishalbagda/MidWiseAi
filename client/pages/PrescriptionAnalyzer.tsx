@@ -115,7 +115,8 @@ export default function PrescriptionAnalyzer() {
             dosage: "As prescribed",
             frequency: "As directed",
             sideEffects: ["Contact support if this persists"],
-            warnings: ["Always follow your doctor's instructions"]
+            warnings: ["Always follow your doctor's instructions"],
+            instructions: "As directed by your healthcare provider"
           }
         ],
         summary: "We're experiencing technical difficulties with the analysis. Please try uploading your prescription again, or consult your healthcare provider for assistance.",
